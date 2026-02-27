@@ -203,15 +203,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                               ),
                             ),
                           ),
-                          onTap: () {
-                            if (slot.status == 'available') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        'Slot ${slot.time} blocked')),
-                              );
-                            }
-                          },
+                          onTap: () => _handleSlotTap(ctx, slot),
                         ),
                       );
                     },
@@ -220,13 +212,163 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Schedule settings opened')),
-          );
-        },
+        onPressed: () => _showManageSheet(context),
         icon: const Icon(Icons.settings),
         label: const Text('Manage'),
+      ),
+    );
+  }
+
+  void _handleSlotTap(BuildContext ctx, _ScheduleSlot slot) {
+    if (slot.status == 'booked' || slot.status == 'completed') {
+      showDialog(
+        context: ctx,
+        builder: (_) => AlertDialog(
+          title: Text(slot.status == 'booked' ? 'Booked Appointment' : 'Completed Appointment'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(children: [
+                const Icon(Icons.access_time, size: 16, color: Colors.grey),
+                const SizedBox(width: 6),
+                Text(slot.time, style: const TextStyle(fontSize: 14)),
+              ]),
+              const SizedBox(height: 8),
+              Row(children: [
+                const Icon(Icons.person_outline, size: 16, color: Colors.grey),
+                const SizedBox(width: 6),
+                Text(slot.patientName, style: const TextStyle(fontSize: 14)),
+              ]),
+            ],
+          ),
+          actions: [
+            if (slot.status == 'booked')
+              TextButton(
+                onPressed: () {
+                  setState(() => slot.status = 'blocked');
+                  Navigator.pop(ctx);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Slot ${slot.time} cancelled and blocked')),
+                  );
+                },
+                child: const Text('Cancel Slot', style: TextStyle(color: AppTheme.errorRed)),
+              ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Close'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Toggle available ↔ blocked
+    if (slot.status == 'available') {
+      setState(() => slot.status = 'blocked');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Slot ${slot.time} blocked'),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () => setState(() => slot.status = 'available'),
+          ),
+        ),
+      );
+    } else if (slot.status == 'blocked') {
+      setState(() => slot.status = 'available');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Slot ${slot.time} unblocked')),
+      );
+    }
+  }
+
+  void _showManageSheet(BuildContext ctx) {
+    final key = DateFormat('yyyy-MM-dd').format(_selectedDay);
+    final slots = _scheduleData[key] ?? [];
+    showModalBottomSheet(
+      context: ctx,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              DateFormat('EEEE, MMM dd').format(_selectedDay),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 4),
+            Text('Manage all slots for this day',
+                style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
+            const Divider(height: 24),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: AppTheme.errorRed.withValues(alpha: 0.1),
+                child: const Icon(Icons.block, color: AppTheme.errorRed, size: 20),
+              ),
+              title: const Text('Block All Available Slots'),
+              subtitle: const Text('Mark all open slots as unavailable'),
+              onTap: () {
+                setState(() {
+                  for (final s in slots) {
+                    if (s.status == 'available') s.status = 'blocked';
+                  }
+                });
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('All available slots blocked')),
+                );
+              },
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: AppTheme.successGreen.withValues(alpha: 0.1),
+                child: const Icon(Icons.check_circle_outline,
+                    color: AppTheme.successGreen, size: 20),
+              ),
+              title: const Text('Unblock All Blocked Slots'),
+              subtitle: const Text('Re-open all blocked slots'),
+              onTap: () {
+                setState(() {
+                  for (final s in slots) {
+                    if (s.status == 'blocked') s.status = 'available';
+                  }
+                });
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('All blocked slots unblocked')),
+                );
+              },
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: AppTheme.primaryBlue.withValues(alpha: 0.1),
+                child: const Icon(Icons.event_busy,
+                    color: AppTheme.primaryBlue, size: 20),
+              ),
+              title: const Text('Mark Day as Off'),
+              subtitle: const Text('Block all slots for the entire day'),
+              onTap: () {
+                setState(() {
+                  for (final s in slots) {
+                    if (s.status != 'booked' && s.status != 'completed') {
+                      s.status = 'blocked';
+                    }
+                  }
+                });
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Day marked as off')),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }
@@ -260,9 +402,9 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
 
 class _ScheduleSlot {
   final String time;
-  final String status;
+  String status;
   final String patientName;
-  const _ScheduleSlot(
+  _ScheduleSlot(
       {required this.time,
       required this.status,
       this.patientName = ''});

@@ -228,6 +228,7 @@ class _WritePrescriptionScreenState extends State<WritePrescriptionScreen> {
                                 Expanded(
                                   child: DropdownButtonFormField<String>(
                                     initialValue: med.frequency,
+                                    isExpanded: true,
                                     decoration: const InputDecoration(
                                       labelText: 'Frequency',
                                       isDense: true,
@@ -307,7 +308,13 @@ class _WritePrescriptionScreenState extends State<WritePrescriptionScreen> {
                       maxLines: 3,
                       decoration: const InputDecoration(
                         hintText: 'Additional notes...',
-                        prefixIcon: Icon(Icons.notes),
+                        alignLabelWithHint: true,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(bottom: 48),
+                          child: Icon(Icons.notes),
+                        ),
+                        prefixIconConstraints:
+                            BoxConstraints(minWidth: 48, minHeight: 48),
                       ),
                     ),
                   ],
