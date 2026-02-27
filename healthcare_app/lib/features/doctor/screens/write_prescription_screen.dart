@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../mock_data/mock_patients.dart';
@@ -66,8 +67,8 @@ class _WritePrescriptionScreenState extends State<WritePrescriptionScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context); // close dialog
+              context.pop();         // navigate back
             },
             child: const Text('Done'),
           ),
