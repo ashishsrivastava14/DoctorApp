@@ -53,7 +53,7 @@ class AppTheme {
         error: errorRed,
         onError: Colors.white,
       ),
-      scaffoldBackgroundColor: backgroundLight,
+      scaffoldBackgroundColor: Colors.transparent,
       textTheme: GoogleFonts.poppinsTextTheme().apply(
         bodyColor: textPrimary,
         displayColor: textPrimary,
@@ -189,7 +189,7 @@ class AppTheme {
         error: errorRed,
         onError: Colors.white,
       ),
-      scaffoldBackgroundColor: darkBackground,
+      scaffoldBackgroundColor: Colors.transparent,
       textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
       appBarTheme: AppBarTheme(
         backgroundColor: darkSurface,

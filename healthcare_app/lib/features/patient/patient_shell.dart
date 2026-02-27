@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/app_background.dart';
 
 class PatientShell extends StatelessWidget {
   final Widget child;
@@ -20,7 +21,7 @@ class PatientShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final idx = _getSelectedIndex(context);
-    return Scaffold(
+    return AppBackground(child: Scaffold(
       body: child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -82,6 +83,6 @@ class PatientShell extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

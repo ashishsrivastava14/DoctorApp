@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../core/widgets/app_background.dart';
 
 class DoctorShell extends StatelessWidget {
   final Widget child;
@@ -41,7 +42,7 @@ class DoctorShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final idx = _currentIndex(context);
-    return Scaffold(
+    return AppBackground(child: Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: idx,
@@ -69,6 +70,6 @@ class DoctorShell extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         items: _items,
       ),
-    );
+    ));
   }
 }

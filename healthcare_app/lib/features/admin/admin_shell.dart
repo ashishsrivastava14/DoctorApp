@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../core/widgets/app_background.dart';
 
 class AdminShell extends StatelessWidget {
   final Widget child;
@@ -30,7 +31,7 @@ class AdminShell extends StatelessWidget {
 
     // Responsive: NavigationRail for wide screens, BottomNav for narrow
     if (width >= 768) {
-      return Scaffold(
+      return AppBackground(child: Scaffold(
         body: Row(
           children: [
             NavigationRail(
@@ -85,10 +86,10 @@ class AdminShell extends StatelessWidget {
             Expanded(child: child),
           ],
         ),
-      );
+      ));
     }
 
-    return Scaffold(
+    return AppBackground(child: Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: idx,
@@ -119,7 +120,7 @@ class AdminShell extends StatelessWidget {
               label: 'More'),
         ],
       ),
-    );
+    ));
   }
 
   void _navigate(BuildContext context, int i) {
