@@ -111,10 +111,9 @@ class PatientDetailsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w600)),
                           const SizedBox(height: 12),
                           _DetailRow(
-                              label: 'Conditions',
-                              value: patient.allergies.isEmpty
-                                  ? 'None'
-                                  : patient.allergies.join(', ')),
+                              label: 'Date of Birth',
+                              value: DateFormat('MMM dd, yyyy')
+                                  .format(patient.dateOfBirth)),
                           _DetailRow(
                               label: 'Allergies',
                               value: patient.allergies.isEmpty

@@ -312,17 +312,22 @@ class _NextAppointmentCard extends StatelessWidget {
             ),
             Column(
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(8),
+                GestureDetector(
+                  onTap: () => context.push(
+                      '/doctor/patient-details/${appointment.patientId}'),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.white38),
+                    ),
+                    child: const Text('Start',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600)),
                   ),
-                  child: const Text('Start',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600)),
                 ),
                 const SizedBox(height: 6),
                 StatusChip(status: appointment.status),

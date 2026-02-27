@@ -162,7 +162,7 @@ class _AppointmentList extends StatelessWidget {
                                     fontSize: 15)),
                             const SizedBox(height: 2),
                             Text(
-                              '${DateFormat('EEE, MMM dd').format(appt.dateTime)} • ${appt.timeSlot}',
+                              '${DateFormat('EEE, MMM dd').format(appt.date)} • ${appt.timeSlot}',
                               style: TextStyle(
                                   fontSize: 12,
                                   color: AppTheme.textSecondary),
@@ -182,10 +182,12 @@ class _AppointmentList extends StatelessWidget {
                               : Icons.person,
                           label: appt.type),
                       const SizedBox(width: 8),
-                      if (appt.symptoms.isNotEmpty)
+                      if (appt.notes.isNotEmpty)
                         _Tag(
                             icon: Icons.medical_services_outlined,
-                            label: appt.symptoms.first),
+                            label: appt.notes.length > 25
+                                ? '${appt.notes.substring(0, 25)}...'
+                                : appt.notes),
                     ],
                   ),
                   if (appt.status == 'Pending') ...[
