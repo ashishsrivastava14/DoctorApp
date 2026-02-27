@@ -132,13 +132,29 @@ class _NotificationTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
         leading: Container(
-          width: 42,
-          height: 42,
+          width: 46,
+          height: 46,
           decoration: BoxDecoration(
-            color: _iconColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              colors: [
+                _iconColor,
+                HSLColor.fromColor(_iconColor)
+                    .withLightness((HSLColor.fromColor(_iconColor).lightness + 0.15).clamp(0.0, 1.0))
+                    .toColor(),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+              BoxShadow(
+                color: _iconColor.withValues(alpha: 0.3),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-          child: Icon(_icon, color: _iconColor, size: 20),
+          child: Icon(_icon, color: Colors.white, size: 20),
         ),
         title: Text(notification.title,
             style: TextStyle(

@@ -80,12 +80,18 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          '🩺 ${doctor.specialty}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white.withValues(alpha: 0.9),
-                          ),
+                        Row(
+                          children: [
+                            const Icon(Icons.medical_services_rounded, size: 14, color: Colors.white70),
+                            const SizedBox(width: 6),
+                            Text(
+                              doctor.specialty,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 4),
                         Text(

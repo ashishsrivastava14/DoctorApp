@@ -379,28 +379,46 @@ class _AdminQuickLink extends StatelessWidget {
     required this.onTap,
   });
 
+  Color get _lighter {
+    final hsl = HSLColor.fromColor(color);
+    return hsl.withLightness((hsl.lightness + 0.15).clamp(0.0, 1.0)).toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        elevation: 3,
+        shadowColor: color.withValues(alpha: 0.2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 46,
+              height: 46,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(
+                  colors: [color, _lighter],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.35),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
-              child: Icon(icon, color: color, size: 22),
+              child: Icon(icon, color: Colors.white, size: 22),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             Text(label,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                    fontSize: 11, fontWeight: FontWeight.w500)),
+                    fontSize: 11, fontWeight: FontWeight.w600)),
           ],
         ),
       ),

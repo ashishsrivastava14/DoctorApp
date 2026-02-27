@@ -120,13 +120,23 @@ class MedicalRecordsScreen extends ConsumerWidget {
                                               ),
                                             ),
                                             if (m.instructions.isNotEmpty)
-                                              Text(
-                                                '💊 ${m.instructions}',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color:
-                                                      AppTheme.primaryBlue,
-                                                ),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Icon(Icons.medication_rounded,
+                                                      size: 14,
+                                                      color: AppTheme.primaryBlue),
+                                                  const SizedBox(width: 4),
+                                                  Expanded(
+                                                    child: Text(
+                                                      m.instructions,
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: AppTheme.primaryBlue,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                           ],
                                         ),

@@ -24,16 +24,30 @@ class DepartmentsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        width: 48,
-                        height: 48,
+                        width: 54,
+                        height: 54,
                         decoration: BoxDecoration(
-                          color: AppTheme.primaryBlue
-                              .withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
+                          gradient: LinearGradient(
+                            colors: [
+                              AppTheme.primaryBlue,
+                              AppTheme.primaryBlue.withValues(alpha: 0.7),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppTheme.primaryBlue.withValues(alpha: 0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
                         ),
                         child: Icon(
                           _deptIcon(dept.name),
-                          color: AppTheme.primaryBlue,
+                          color: Colors.white,
+                          size: 26,
                         ),
                       ),
                       const SizedBox(width: 14),

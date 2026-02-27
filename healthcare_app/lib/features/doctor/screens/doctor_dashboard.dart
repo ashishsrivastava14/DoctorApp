@@ -348,27 +348,45 @@ class _QuickAction extends StatelessWidget {
     required this.onTap,
   });
 
+  Color get _lighter {
+    final hsl = HSLColor.fromColor(color);
+    return hsl.withLightness((hsl.lightness + 0.15).clamp(0.0, 1.0)).toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        elevation: 3,
+        shadowColor: color.withValues(alpha: 0.2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 44,
-              height: 44,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  colors: [color, _lighter],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.35),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
-              child: Icon(icon, color: color),
+              child: Icon(icon, color: Colors.white, size: 24),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             Text(label,
                 style: const TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w500)),
+                    fontSize: 12, fontWeight: FontWeight.w600)),
           ],
         ),
       ),

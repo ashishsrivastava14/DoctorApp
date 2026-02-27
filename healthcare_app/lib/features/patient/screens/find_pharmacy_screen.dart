@@ -213,15 +213,25 @@ class _FindPharmacyScreenState extends State<FindPharmacyScreen> {
                         Row(
                           children: [
                             Container(
-                              width: 44,
-                              height: 44,
+                              width: 50,
+                              height: 50,
                               decoration: BoxDecoration(
-                                color: AppTheme.primaryBlue
-                                    .withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(10),
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFF1E88E5), Color(0xFF42A5F5)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(14),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x551E88E5),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                              child: const Icon(Icons.local_pharmacy,
-                                  color: AppTheme.primaryBlue),
+                              child: const Icon(Icons.local_pharmacy_rounded,
+                                  color: Colors.white, size: 24),
                             ),
                             const SizedBox(width: 12),
                             Expanded(

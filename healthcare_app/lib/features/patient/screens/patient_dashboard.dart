@@ -216,12 +216,18 @@ class PatientDashboard extends ConsumerWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                Text(
-                                  '🩺 ${upcoming.first.doctorSpecialty}',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: AppTheme.textSecondary,
-                                  ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.medical_services_rounded, size: 14, color: AppTheme.primaryBlue),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      upcoming.first.doctorSpecialty,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: AppTheme.textSecondary,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -328,14 +334,15 @@ class PatientDashboard extends ConsumerWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     _SpecialtyChip(
-                        icon: '🧠',
+                        icon: Icons.psychology_rounded,
+                        color: const Color(0xFF7C3AED),
                         label: 'Neurologist',
                         isSelected: true),
-                    _SpecialtyChip(icon: '❤️', label: 'Cardiologist'),
-                    _SpecialtyChip(icon: '🩺', label: 'Dermatologist'),
-                    _SpecialtyChip(icon: '🦴', label: 'Orthopedic'),
-                    _SpecialtyChip(icon: '👶', label: 'Pediatrician'),
-                    _SpecialtyChip(icon: '👩', label: 'Gynecologist'),
+                    _SpecialtyChip(icon: Icons.favorite_rounded, color: const Color(0xFFE53935), label: 'Cardiologist'),
+                    _SpecialtyChip(icon: Icons.face_retouching_natural, color: const Color(0xFF00897B), label: 'Dermatologist'),
+                    _SpecialtyChip(icon: Icons.accessibility_new_rounded, color: const Color(0xFF1E88E5), label: 'Orthopedic'),
+                    _SpecialtyChip(icon: Icons.child_care_rounded, color: const Color(0xFFF4511E), label: 'Pediatrician'),
+                    _SpecialtyChip(icon: Icons.pregnant_woman_rounded, color: const Color(0xFF8E24AA), label: 'Gynecologist'),
                   ],
                 ),
               ),
@@ -577,33 +584,49 @@ class PatientDashboard extends ConsumerWidget {
 }
 
 class _SpecialtyChip extends StatelessWidget {
-  final String icon;
+  final IconData icon;
+  final Color color;
   final String label;
   final bool isSelected;
 
   const _SpecialtyChip({
     required this.icon,
+    required this.color,
     required this.label,
     this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final activeColor = isSelected ? AppTheme.primaryBlue : color;
     return Container(
       margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
         color: isSelected ? AppTheme.primaryBlue : Colors.white,
         borderRadius: BorderRadius.circular(25),
         border: Border.all(
-          color: isSelected
-              ? AppTheme.primaryBlue
-              : AppTheme.dividerColor,
+          color: isSelected ? AppTheme.primaryBlue : color.withValues(alpha: 0.35),
         ),
+        boxShadow: isSelected
+            ? [BoxShadow(color: AppTheme.primaryBlue.withValues(alpha: 0.25), blurRadius: 6, offset: const Offset(0, 2))]
+            : [],
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(icon, style: const TextStyle(fontSize: 18)),
+          Container(
+            width: 26,
+            height: 26,
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? Colors.white.withValues(alpha: 0.2)
+                  : color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, size: 15,
+                color: isSelected ? Colors.white : activeColor),
+          ),
           const SizedBox(width: 8),
           Text(
             label,
@@ -632,6 +655,11 @@ class _QuickAction extends StatelessWidget {
     required this.onTap,
   });
 
+  Color get _lighterColor {
+    final hsl = HSLColor.fromColor(color);
+    return hsl.withLightness((hsl.lightness + 0.15).clamp(0.0, 1.0)).toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -639,18 +667,30 @@ class _QuickAction extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(14),
+            width: 56,
+            height: 56,
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(14),
+              gradient: LinearGradient(
+                colors: [color, _lighterColor],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.35),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-            child: Icon(icon, color: color, size: 26),
+            child: Icon(icon, color: Colors.white, size: 26),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
           ),
         ],
       ),
