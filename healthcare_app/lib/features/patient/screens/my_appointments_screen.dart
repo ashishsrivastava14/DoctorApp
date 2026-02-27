@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/widgets/appointment_card.dart';
 import '../../../core/widgets/empty_state_widget.dart';
@@ -75,6 +76,7 @@ class _AppointmentList extends StatelessWidget {
           status: apt.status,
           type: apt.type,
           doctorAvatarUrl: apt.doctorAvatar,
+          onTap: () => context.push('/patient/doctor-detail/${apt.doctorId}'),
           onCancel: apt.status == 'Confirmed' || apt.status == 'Pending'
               ? () {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -82,7 +84,7 @@ class _AppointmentList extends StatelessWidget {
                   );
                 }
               : null,
-          onJoin: () {},
+          onJoin: () => context.push('/patient/doctor-detail/${apt.doctorId}'),
         );
       },
     );
