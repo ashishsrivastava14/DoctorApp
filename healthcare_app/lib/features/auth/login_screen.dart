@@ -60,17 +60,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
-  String get _roleEmoji {
-    switch (widget.role) {
-      case 'doctor':
-        return '👨‍⚕️';
-      case 'admin':
-        return '🔐';
-      default:
-        return '🧑‍💼';
-    }
-  }
-
   Color get _roleColor {
     switch (widget.role) {
       case 'doctor':
@@ -79,6 +68,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         return const Color(0xFF8B5CF6);
       default:
         return AppTheme.primaryBlue;
+    }
+  }
+
+  String get _backgroundImage {
+    switch (widget.role) {
+      case 'doctor':
+        return 'assets/images/doctors.png';
+      case 'admin':
+        return 'assets/images/background.png';
+      default:
+        return 'assets/images/happy.png';
     }
   }
 
@@ -112,45 +112,49 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              _roleColor.withValues(alpha: 0.08),
-              AppTheme.backgroundLight,
-            ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background image
+          Image.asset(
+            _backgroundImage,
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
           ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: _roleColor.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
+          // Gradient overlay
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.white.withValues(alpha: 0.0),
+                  Colors.white.withValues(alpha: 0.5),
+                  Colors.white.withValues(alpha: 0.92),
+                  Colors.white,
+                ],
+                stops: const [0.0, 0.25, 0.42, 0.55],
+              ),
+            ),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded),
                       ),
-                      child:
-                          Text(_roleEmoji, style: const TextStyle(fontSize: 48)),
                     ),
-                  ),
-                  const SizedBox(height: 24),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.22),
+                    const SizedBox(height: 24),
                   Text(
                     '$_roleTitle Login',
                     textAlign: TextAlign.center,
@@ -295,6 +299,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           ),
         ),
+        ],
       ),
     );
   }
