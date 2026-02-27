@@ -48,12 +48,15 @@ class _PatientDashboardState extends ConsumerState<PatientDashboard> {
 
     final _query = _searchController.text.toLowerCase();
     final filteredDoctors = mockDoctors.where((d) {
-      final matchesSpecialty = _selectedSpecialty.isEmpty ||
-          d.specialty.toLowerCase().contains(_selectedSpecialty.toLowerCase());
-      final matchesSearch = _query.isEmpty ||
-          d.name.toLowerCase().contains(_query) ||
-          d.specialty.toLowerCase().contains(_query);
-      return matchesSpecialty && matchesSearch;
+      if (_query.isNotEmpty) {
+        // When searching, ignore specialty filter and match across all doctors
+        return d.name.toLowerCase().contains(_query) ||
+            d.specialty.toLowerCase().contains(_query) ||
+            d.hospitalName.toLowerCase().contains(_query);
+      }
+      // No search query — filter by selected specialty chip
+      return _selectedSpecialty.isEmpty ||
+          d.specialty.toLowerCase() == _selectedSpecialty.toLowerCase();
     }).take(5).toList();
 
     return Scaffold(
@@ -157,6 +160,8 @@ class _PatientDashboardState extends ConsumerState<PatientDashboard> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: TextField(
+                        controller: _searchController,
+                        onChanged: (_) => setState(() {}),
                         decoration: InputDecoration(
                           hintText: 'Search your doctors',
                           border: InputBorder.none,
@@ -168,14 +173,31 @@ class _PatientDashboardState extends ConsumerState<PatientDashboard> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryBlue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Icon(Icons.tune, color: Colors.white, size: 20),
-                    ),
+                    _searchController.text.isNotEmpty
+                        ? GestureDetector(
+                            onTap: () {
+                              _searchController.clear();
+                              setState(() {});
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppTheme.textLight.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(Icons.close,
+                                  color: AppTheme.textSecondary, size: 20),
+                            ),
+                          )
+                        : Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppTheme.primaryBlue,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.tune,
+                                color: Colors.white, size: 20),
+                          ),
                   ],
                 ),
               ),
