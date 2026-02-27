@@ -156,6 +156,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
               ),
             ),
           ),
+          // Logo at top center
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 12,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: 120,
+              ),
+            ),
+          ),
           // Back button at top
           Positioned(
             top: MediaQuery.of(context).padding.top + 8,

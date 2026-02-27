@@ -64,6 +64,19 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
           ),
+          // Logo at top right
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 2, left: 0),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 120,
+                ),
+              ),
+            ),
+          ),
           // Content
           SafeArea(
             child: FadeTransition(
