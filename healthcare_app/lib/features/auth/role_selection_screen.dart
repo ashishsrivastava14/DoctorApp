@@ -81,26 +81,32 @@ class RoleSelectionScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                 _RoleCard(
-                  emoji: '🧑‍💼',
+                  icon: Icons.health_and_safety_rounded,
+                  iconBg: [Color(0xFF2196F3), Color(0xFF42A5F5)],
                   title: 'Patient Login',
                   subtitle: 'Book appointments & manage health',
                   color: AppTheme.primaryBlue,
+                  tag: 'PATIENT',
                   onTap: () => context.push('/login/patient'),
                 ),
                 const SizedBox(height: 16),
                 _RoleCard(
-                  emoji: '👨‍⚕️',
+                  icon: Icons.medical_services_rounded,
+                  iconBg: [Color(0xFF00897B), Color(0xFF26A69A)],
                   title: 'Doctor Login',
                   subtitle: 'Manage patients & appointments',
                   color: AppTheme.successGreen,
+                  tag: 'DOCTOR',
                   onTap: () => context.push('/login/doctor'),
                 ),
                 const SizedBox(height: 16),
                 _RoleCard(
-                  emoji: '🔐',
+                  icon: Icons.admin_panel_settings_rounded,
+                  iconBg: [Color(0xFF7C3AED), Color(0xFFA78BFA)],
                   title: 'Admin Login',
                   subtitle: 'Hospital management & reports',
                   color: const Color(0xFF8B5CF6),
+                  tag: 'ADMIN',
                   onTap: () => context.push('/login/admin'),
                 ),
                   const SizedBox(height: 24),
@@ -115,67 +121,127 @@ class RoleSelectionScreen extends StatelessWidget {
 }
 
 class _RoleCard extends StatelessWidget {
-  final String emoji;
+  final IconData icon;
+  final List<Color> iconBg;
   final String title;
   final String subtitle;
   final Color color;
+  final String tag;
   final VoidCallback onTap;
 
   const _RoleCard({
-    required this.emoji,
+    required this.icon,
+    required this.iconBg,
     required this.title,
     required this.subtitle,
     required this.color,
+    required this.tag,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shadowColor: color.withValues(alpha: 0.2),
+    return Material(
+      elevation: 4,
+      shadowColor: color.withValues(alpha: 0.25),
+      borderRadius: BorderRadius.circular(20),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+        borderRadius: BorderRadius.circular(20),
+        splashColor: color.withValues(alpha: 0.08),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(color: color, width: 4),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           child: Row(
             children: [
+              // Gradient icon circle
               Container(
-                padding: const EdgeInsets.all(12),
+                width: 62,
+                height: 62,
                 decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(14),
+                  gradient: LinearGradient(
+                    colors: iconBg,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: iconBg.first.withValues(alpha: 0.4),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: Text(emoji, style: const TextStyle(fontSize: 28)),
+                child: Icon(icon, color: Colors.white, size: 30),
               ),
               const SizedBox(width: 16),
+              // Text content
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.1,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: color.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            tag,
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                              color: color,
+                              letterSpacing: 0.8,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 4),
                     Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 12.5,
                         color: AppTheme.textSecondary,
+                        height: 1.3,
                       ),
                     ),
                   ],
                 ),
               ),
-              Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: color,
-                size: 20,
+              // Arrow button
+              Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: color,
+                  size: 18,
+                ),
               ),
             ],
           ),
