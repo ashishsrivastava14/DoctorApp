@@ -258,42 +258,42 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _roleColor.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                          color: _roleColor.withValues(alpha: 0.15)),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Demo Credentials',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: _roleColor,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Email: ${_emailController.text}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppTheme.textSecondary,
-                          ),
-                        ),
-                        Text(
-                          'Password: ${_passwordController.text}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppTheme.textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.all(16),
+                  //   decoration: BoxDecoration(
+                  //     color: _roleColor.withValues(alpha: 0.05),
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     border: Border.all(
+                  //         color: _roleColor.withValues(alpha: 0.15)),
+                  //   ),
+                  //   child: Column(
+                  //     children: [
+                  //       Text(
+                  //         'Demo Credentials',
+                  //         style: TextStyle(
+                  //           fontSize: 13,
+                  //           fontWeight: FontWeight.w600,
+                  //           color: _roleColor,
+                  //         ),
+                  //       ),
+                  //       const SizedBox(height: 4),
+                  //       Text(
+                  //         'Email: ${_emailController.text}',
+                  //         style: TextStyle(
+                  //           fontSize: 12,
+                  //           color: AppTheme.textSecondary,
+                  //         ),
+                  //       ),
+                  //       Text(
+                  //         'Password: ${_passwordController.text}',
+                  //         style: TextStyle(
+                  //           fontSize: 12,
+                  //           color: AppTheme.textSecondary,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
