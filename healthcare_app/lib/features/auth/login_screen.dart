@@ -74,7 +74,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String get _backgroundImage {
     switch (widget.role) {
       case 'doctor':
-        return 'assets/images/doctors.png';
+        return 'assets/images/doctorg.png';
       case 'admin':
         return 'assets/images/background.png';
       default:
@@ -129,11 +129,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.white.withValues(alpha: 0.0),
-                  Colors.white.withValues(alpha: 0.5),
-                  Colors.white.withValues(alpha: 0.92),
-                  Colors.white,
+                  Colors.white.withValues(alpha: 0.0),
+                  Colors.white.withValues(alpha: 0.3),
+                  Colors.white.withValues(alpha: 0.75),
+                  Colors.white.withValues(alpha: 0.95),
                 ],
-                stops: const [0.0, 0.25, 0.42, 0.55],
+                stops: const [0.0, 0.45, 0.6, 0.75, 0.85],
               ),
             ),
           ),
