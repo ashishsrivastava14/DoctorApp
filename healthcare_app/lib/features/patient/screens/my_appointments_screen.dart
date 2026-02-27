@@ -74,6 +74,7 @@ class _AppointmentList extends StatelessWidget {
           time: apt.timeSlot,
           status: apt.status,
           type: apt.type,
+          doctorAvatarUrl: apt.doctorAvatar,
           onCancel: apt.status == 'Confirmed' || apt.status == 'Pending'
               ? () {
                   ScaffoldMessenger.of(context).showSnackBar(

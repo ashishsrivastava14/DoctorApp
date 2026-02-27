@@ -5,12 +5,14 @@ class MockAvatarWidget extends StatelessWidget {
   final String name;
   final double size;
   final Color? backgroundColor;
+  final String? avatarUrl;
 
   const MockAvatarWidget({
     super.key,
     required this.name,
     this.size = 48,
     this.backgroundColor,
+    this.avatarUrl,
   });
 
   String get _initials {
@@ -38,6 +40,47 @@ class MockAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (avatarUrl != null && avatarUrl!.isNotEmpty) {
+      final isAsset = avatarUrl!.startsWith('assets/');
+      return Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: _color.withValues(alpha: 0.3),
+            width: 2,
+          ),
+        ),
+        child: ClipOval(
+          child: isAsset
+              ? Image.asset(
+                  avatarUrl!,
+                  width: size,
+                  height: size,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildInitials(),
+                )
+              : Image.network(
+                  avatarUrl!,
+                  width: size,
+                  height: size,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildInitials(),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return _buildInitials();
+                  },
+                ),
+        ),
+      );
+    }
+    return _buildInitials();
+  }
+
+  Widget _buildInitials() {
     return Container(
       width: size,
       height: size,

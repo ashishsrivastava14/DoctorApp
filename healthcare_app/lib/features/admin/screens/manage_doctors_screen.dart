@@ -99,7 +99,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                     padding: const EdgeInsets.all(12),
                     child: Row(
                       children: [
-                        MockAvatarWidget(name: doc.name, size: 48),
+                        MockAvatarWidget(name: doc.name, size: 48, avatarUrl: doc.avatarUrl),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(

@@ -114,7 +114,7 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
                         margin: const EdgeInsets.only(bottom: 8),
                         child: ListTile(
                           leading: MockAvatarWidget(
-                              name: patient.name, size: 44),
+                              name: patient.name, size: 44, avatarUrl: patient.avatarUrl),
                           title: Text(patient.name,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600,

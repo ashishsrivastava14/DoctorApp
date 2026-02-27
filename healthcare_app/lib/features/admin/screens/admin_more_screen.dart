@@ -19,7 +19,7 @@ class AdminMoreScreen extends ConsumerWidget {
           Card(
             child: ListTile(
               leading: const MockAvatarWidget(
-                  name: 'Admin User', size: 44),
+                  name: 'Admin User', size: 44, avatarUrl: 'assets/images/avatars/admin.jpg'),
               title: const Text('Admin User',
                   style: TextStyle(fontWeight: FontWeight.w600)),
               subtitle: const Text('System Administrator'),

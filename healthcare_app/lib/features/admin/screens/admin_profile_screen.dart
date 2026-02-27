@@ -24,7 +24,7 @@ class AdminProfileScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     const MockAvatarWidget(
-                        name: 'Admin User', size: 80),
+                        name: 'Admin User', size: 80, avatarUrl: 'assets/images/avatars/admin.jpg'),
                     const SizedBox(height: 12),
                     Text(auth.userName ?? 'Admin',
                         style: const TextStyle(

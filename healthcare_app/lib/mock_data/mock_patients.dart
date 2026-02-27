@@ -15,6 +15,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9099',
     height: 165,
     weight: 58,
+    avatarUrl: 'assets/images/avatars/patient_1.jpg',
   ),
   PatientModel(
     id: 'pat_2',
@@ -30,6 +31,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9100',
     height: 180,
     weight: 82,
+    avatarUrl: 'assets/images/avatars/patient_2.jpg',
   ),
   PatientModel(
     id: 'pat_3',
@@ -45,6 +47,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9101',
     height: 160,
     weight: 55,
+    avatarUrl: 'assets/images/avatars/patient_3.jpg',
   ),
   PatientModel(
     id: 'pat_4',
@@ -60,6 +63,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9102',
     height: 175,
     weight: 78,
+    avatarUrl: 'assets/images/avatars/patient_4.jpg',
   ),
   PatientModel(
     id: 'pat_5',
@@ -75,6 +79,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9103',
     height: 168,
     weight: 62,
+    avatarUrl: 'assets/images/avatars/patient_5.jpg',
   ),
   PatientModel(
     id: 'pat_6',
@@ -90,6 +95,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9104',
     height: 182,
     weight: 85,
+    avatarUrl: 'assets/images/avatars/patient_6.jpg',
   ),
   PatientModel(
     id: 'pat_7',
@@ -105,6 +111,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9105',
     height: 155,
     weight: 50,
+    avatarUrl: 'assets/images/avatars/patient_7.jpg',
   ),
   PatientModel(
     id: 'pat_8',
@@ -120,6 +127,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9106',
     height: 178,
     weight: 90,
+    avatarUrl: 'assets/images/avatars/patient_8.jpg',
   ),
   PatientModel(
     id: 'pat_9',
@@ -135,6 +143,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9107',
     height: 163,
     weight: 57,
+    avatarUrl: 'assets/images/avatars/patient_9.jpg',
   ),
   PatientModel(
     id: 'pat_10',
@@ -150,6 +159,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9108',
     height: 185,
     weight: 88,
+    avatarUrl: 'assets/images/avatars/patient_10.jpg',
   ),
   PatientModel(
     id: 'pat_11',
@@ -165,6 +175,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9109',
     height: 170,
     weight: 65,
+    avatarUrl: 'assets/images/avatars/patient_11.jpg',
   ),
   PatientModel(
     id: 'pat_12',
@@ -180,6 +191,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9110',
     height: 176,
     weight: 80,
+    avatarUrl: 'assets/images/avatars/patient_12.jpg',
   ),
   PatientModel(
     id: 'pat_13',
@@ -195,6 +207,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9111',
     height: 162,
     weight: 53,
+    avatarUrl: 'assets/images/avatars/patient_13.jpg',
   ),
   PatientModel(
     id: 'pat_14',
@@ -210,6 +223,7 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9112',
     height: 172,
     weight: 75,
+    avatarUrl: 'assets/images/avatars/patient_14.jpg',
   ),
   PatientModel(
     id: 'pat_15',
@@ -225,5 +239,6 @@ final List<PatientModel> mockPatients = [
     emergencyPhone: '+1 345 678 9113',
     height: 158,
     weight: 52,
+    avatarUrl: 'assets/images/avatars/patient_15.jpg',
   ),
 ];

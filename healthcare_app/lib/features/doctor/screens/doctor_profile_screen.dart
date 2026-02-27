@@ -82,7 +82,7 @@ class _DoctorProfileScreenState extends ConsumerState<DoctorProfileScreen> {
                     Hero(
                       tag: 'doctor_${doctor.id}',
                       child: MockAvatarWidget(
-                          name: doctor.name, size: 80),
+                          name: doctor.name, size: 80, avatarUrl: doctor.avatarUrl),
                     ),
                     const SizedBox(height: 12),
                     Text(doctor.name,

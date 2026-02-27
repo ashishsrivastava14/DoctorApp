@@ -150,7 +150,7 @@ class _AppointmentList extends StatelessWidget {
                   Row(
                     children: [
                       MockAvatarWidget(
-                          name: appt.patientName, size: 44),
+                          name: appt.patientName, size: 44, avatarUrl: appt.patientAvatar),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(

@@ -25,6 +25,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'City General Hospital',
     address: '123 Medical Center Dr, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_1.jpg',
   ),
   DoctorModel(
     id: 'doc_2',
@@ -48,6 +49,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Heart Care Center',
     address: '456 Cardiac Ave, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_2.jpg',
   ),
   DoctorModel(
     id: 'doc_3',
@@ -71,6 +73,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Skin Care Clinic',
     address: '789 Derma St, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_3.jpg',
   ),
   DoctorModel(
     id: 'doc_4',
@@ -95,6 +98,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Children\'s Medical Center',
     address: '321 Kids Ave, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_4.jpg',
   ),
   DoctorModel(
     id: 'doc_5',
@@ -118,6 +122,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Bone & Joint Center',
     address: '654 Ortho Lane, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_5.jpg',
   ),
   DoctorModel(
     id: 'doc_6',
@@ -142,6 +147,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Women\'s Health Center',
     address: '987 Women St, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_6.jpg',
   ),
   DoctorModel(
     id: 'doc_7',
@@ -165,6 +171,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Mind Wellness Center',
     address: '147 Mental Health Dr, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_7.jpg',
   ),
   DoctorModel(
     id: 'doc_8',
@@ -188,6 +195,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'Vision Care Institute',
     address: '258 Eye Lane, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_8.jpg',
   ),
   DoctorModel(
     id: 'doc_9',
@@ -211,6 +219,7 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'ENT Medical Center',
     address: '369 ENT Blvd, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_9.jpg',
   ),
   DoctorModel(
     id: 'doc_10',
@@ -237,5 +246,6 @@ final List<DoctorModel> mockDoctors = [
     ],
     hospitalName: 'City General Hospital',
     address: '123 Medical Center Dr, New York, NY',
+    avatarUrl: 'assets/images/avatars/doctor_10.jpg',
   ),
 ];

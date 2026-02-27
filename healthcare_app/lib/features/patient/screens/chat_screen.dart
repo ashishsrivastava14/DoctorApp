@@ -4,7 +4,12 @@ import '../../../core/widgets/mock_avatar_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   final String doctorName;
-  const ChatScreen({super.key, this.doctorName = 'Dr. Sarah Wilson'});
+  final String doctorAvatarUrl;
+  const ChatScreen({
+    super.key,
+    this.doctorName = 'Dr. Sarah Wilson',
+    this.doctorAvatarUrl = 'assets/images/avatars/doctor_2.jpg',
+  });
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -127,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
         titleSpacing: 0,
         title: Row(
           children: [
-            const MockAvatarWidget(name: 'Dr. Sarah Wilson', size: 36),
+            MockAvatarWidget(name: widget.doctorName, size: 36, avatarUrl: widget.doctorAvatarUrl),
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

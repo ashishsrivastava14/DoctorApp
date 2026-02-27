@@ -11,6 +11,7 @@ class DoctorCard extends StatelessWidget {
   final bool isAvailable;
   final VoidCallback? onTap;
   final String heroTag;
+  final String avatarUrl;
 
   const DoctorCard({
     super.key,
@@ -22,6 +23,7 @@ class DoctorCard extends StatelessWidget {
     this.isAvailable = true,
     this.onTap,
     this.heroTag = '',
+    this.avatarUrl = '',
   });
 
   @override
@@ -37,7 +39,7 @@ class DoctorCard extends StatelessWidget {
             children: [
               Hero(
                 tag: heroTag.isNotEmpty ? heroTag : 'doctor_$name',
-                child: MockAvatarWidget(name: name, size: 60),
+                child: MockAvatarWidget(name: name, size: 60, avatarUrl: avatarUrl),
               ),
               const SizedBox(width: 16),
               Expanded(

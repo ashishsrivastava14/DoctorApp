@@ -30,8 +30,9 @@ class _TelemedicineScreenState extends State<TelemedicineScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const MockAvatarWidget(
-                      name: 'Dr. Sarah Wilson', size: 100),
+                  MockAvatarWidget(
+                      name: 'Dr. Sarah Wilson', size: 100,
+                      avatarUrl: 'assets/images/avatars/doctor_2.jpg'),
                   const SizedBox(height: 16),
                   const Text(
                     'Dr. Sarah Wilson',

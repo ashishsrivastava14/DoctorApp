@@ -108,6 +108,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                   fee: doc.consultationFee,
                   isAvailable: doc.isAvailable,
                   heroTag: 'doctor_${doc.id}',
+                  avatarUrl: doc.avatarUrl,
                   onTap: () =>
                       context.push('/patient/doctor-detail/${doc.id}'),
                 );

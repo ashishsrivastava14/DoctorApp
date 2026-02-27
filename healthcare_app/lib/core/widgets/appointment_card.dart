@@ -15,6 +15,7 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback? onReschedule;
   final VoidCallback? onJoin;
   final bool showActions;
+  final String doctorAvatarUrl;
 
   const AppointmentCard({
     super.key,
@@ -29,6 +30,7 @@ class AppointmentCard extends StatelessWidget {
     this.onReschedule,
     this.onJoin,
     this.showActions = true,
+    this.doctorAvatarUrl = '',
   });
 
   @override
@@ -44,7 +46,7 @@ class AppointmentCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  MockAvatarWidget(name: doctorName, size: 50),
+                  MockAvatarWidget(name: doctorName, size: 50, avatarUrl: doctorAvatarUrl),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(

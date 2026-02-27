@@ -89,7 +89,7 @@ class _PatientProfileScreenState extends ConsumerState<PatientProfileScreen> {
             Center(
               child: Column(
                 children: [
-                  MockAvatarWidget(name: patient.name, size: 80),
+                  MockAvatarWidget(name: patient.name, size: 80, avatarUrl: patient.avatarUrl),
                   const SizedBox(height: 12),
                   Text(
                     patient.name,

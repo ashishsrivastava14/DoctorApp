@@ -65,6 +65,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       name: doctor.name,
                       size: 80,
                       backgroundColor: Colors.white,
+                      avatarUrl: doctor.avatarUrl,
                     ),
                   ),
                   const SizedBox(width: 16),

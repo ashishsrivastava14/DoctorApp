@@ -7,6 +7,7 @@ import '../../../core/widgets/mock_avatar_widget.dart';
 import '../../../mock_data/mock_appointments.dart';
 import '../../../mock_data/mock_prescriptions.dart';
 import '../../../mock_data/mock_doctors.dart';
+import '../../../mock_data/mock_patients.dart';
 import '../../../features/auth/auth_notifier.dart';
 
 class PatientDashboard extends ConsumerWidget {
@@ -15,6 +16,10 @@ class PatientDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authProvider);
+    final currentPatient = mockPatients.firstWhere(
+      (p) => p.id == auth.userId,
+      orElse: () => mockPatients.first,
+    );
     final patientAppointments = mockAppointments
         .where((a) => a.patientId == auth.userId)
         .toList();
@@ -82,7 +87,7 @@ class PatientDashboard extends ConsumerWidget {
                   Stack(
                     children: [
                       MockAvatarWidget(
-                          name: auth.userName ?? 'P', size: 44),
+                          name: auth.userName ?? 'P', size: 44, avatarUrl: currentPatient.avatarUrl),
                       Positioned(
                         right: 0,
                         bottom: 0,
@@ -187,7 +192,7 @@ class PatientDashboard extends ConsumerWidget {
                       Row(
                         children: [
                           MockAvatarWidget(
-                              name: upcoming.first.doctorName, size: 55),
+                              name: upcoming.first.doctorName, size: 55, avatarUrl: upcoming.first.doctorAvatar),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Column(
@@ -425,7 +430,7 @@ class PatientDashboard extends ConsumerWidget {
                             Hero(
                               tag: 'doctor_${doc.id}',
                               child: MockAvatarWidget(
-                                  name: doc.name, size: 64),
+                                  name: doc.name, size: 64, avatarUrl: doc.avatarUrl),
                             ),
                             const SizedBox(height: 8),
                             Text(

@@ -135,7 +135,7 @@ class _AdminAppointmentsScreenState
                 Row(
                   children: [
                     MockAvatarWidget(
-                        name: a.patientName, size: 40),
+                        name: a.patientName, size: 40, avatarUrl: a.patientAvatar),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(

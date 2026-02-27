@@ -173,7 +173,7 @@ class DoctorDashboard extends ConsumerWidget {
                   margin: const EdgeInsets.only(bottom: 8),
                   child: ListTile(
                     leading: MockAvatarWidget(
-                        name: appt.patientName, size: 40),
+                        name: appt.patientName, size: 40, avatarUrl: appt.patientAvatar),
                     title: Text(appt.patientName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 14)),
@@ -284,7 +284,7 @@ class _NextAppointmentCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            MockAvatarWidget(name: appointment.patientName, size: 50),
+            MockAvatarWidget(name: appointment.patientName, size: 50, avatarUrl: appointment.patientAvatar),
             const SizedBox(width: 14),
             Expanded(
               child: Column(

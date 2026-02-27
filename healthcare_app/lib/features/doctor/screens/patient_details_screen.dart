@@ -57,7 +57,7 @@ class PatientDetailsScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           MockAvatarWidget(
-                              name: patient.name, size: 70),
+                              name: patient.name, size: 70, avatarUrl: patient.avatarUrl),
                           const SizedBox(height: 12),
                           Text(patient.name,
                               style: const TextStyle(

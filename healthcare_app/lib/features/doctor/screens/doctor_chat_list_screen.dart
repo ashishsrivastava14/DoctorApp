@@ -11,37 +11,44 @@ class DoctorChatListScreen extends StatelessWidget {
         patientName: 'John Smith',
         lastMessage: 'Thank you, Doctor! I\'ll follow your advice.',
         time: '10:12 AM',
-        unread: 0),
+        unread: 0,
+        avatarUrl: 'assets/images/avatars/chat_1.jpg'),
     _ChatPreview(
         patientName: 'Jane Doe',
         lastMessage: 'When should I come for the next check-up?',
         time: '9:45 AM',
-        unread: 2),
+        unread: 2,
+        avatarUrl: 'assets/images/avatars/chat_2.jpg'),
     _ChatPreview(
         patientName: 'Robert Johnson',
         lastMessage: 'I\'m feeling much better now.',
         time: 'Yesterday',
-        unread: 0),
+        unread: 0,
+        avatarUrl: 'assets/images/avatars/chat_3.jpg'),
     _ChatPreview(
         patientName: 'Emily Chen',
         lastMessage: 'Can I share my lab reports?',
         time: 'Yesterday',
-        unread: 1),
+        unread: 1,
+        avatarUrl: 'assets/images/avatars/chat_4.jpg'),
     _ChatPreview(
         patientName: 'Michael Brown',
         lastMessage: 'The new medication is working well.',
         time: 'Mon',
-        unread: 0),
+        unread: 0,
+        avatarUrl: 'assets/images/avatars/chat_5.jpg'),
     _ChatPreview(
         patientName: 'Sarah Williams',
         lastMessage: 'Should I continue the same dosage?',
         time: 'Mon',
-        unread: 3),
+        unread: 3,
+        avatarUrl: 'assets/images/avatars/chat_6.jpg'),
     _ChatPreview(
         patientName: 'David Lee',
         lastMessage: 'Thank you for the prescription.',
         time: 'Sun',
-        unread: 0),
+        unread: 0,
+        avatarUrl: 'assets/images/avatars/chat_7.jpg'),
   ];
 
   @override
@@ -64,7 +71,7 @@ class DoctorChatListScreen extends StatelessWidget {
           final chat = _chats[idx];
           return ListTile(
             leading: MockAvatarWidget(
-                name: chat.patientName, size: 48),
+                name: chat.patientName, size: 48, avatarUrl: chat.avatarUrl),
             title: Row(
               children: [
                 Expanded(
@@ -134,10 +141,12 @@ class _ChatPreview {
   final String lastMessage;
   final String time;
   final int unread;
+  final String avatarUrl;
   const _ChatPreview({
     required this.patientName,
     required this.lastMessage,
     required this.time,
     required this.unread,
+    this.avatarUrl = '',
   });
 }
