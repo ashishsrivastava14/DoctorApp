@@ -10,11 +10,25 @@ import '../../../mock_data/mock_doctors.dart';
 import '../../../mock_data/mock_patients.dart';
 import '../../../features/auth/auth_notifier.dart';
 
-class PatientDashboard extends ConsumerWidget {
+class PatientDashboard extends ConsumerStatefulWidget {
   const PatientDashboard({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PatientDashboard> createState() => _PatientDashboardState();
+}
+
+class _PatientDashboardState extends ConsumerState<PatientDashboard> {
+  String _selectedSpecialty = 'Neurologist';
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final auth = ref.watch(authProvider);
     final currentPatient = mockPatients.firstWhere(
       (p) => p.id == auth.userId,
@@ -31,6 +45,16 @@ class PatientDashboard extends ConsumerWidget {
         .where((p) => p.patientId == auth.userId)
         .toList()
       ..sort((a, b) => b.date.compareTo(a.date));
+
+    final _query = _searchController.text.toLowerCase();
+    final filteredDoctors = mockDoctors.where((d) {
+      final matchesSpecialty = _selectedSpecialty.isEmpty ||
+          d.specialty.toLowerCase().contains(_selectedSpecialty.toLowerCase());
+      final matchesSearch = _query.isEmpty ||
+          d.name.toLowerCase().contains(_query) ||
+          d.specialty.toLowerCase().contains(_query);
+      return matchesSpecialty && matchesSearch;
+    }).take(5).toList();
 
     return Scaffold(
       body: SafeArea(
@@ -275,14 +299,17 @@ class PatientDashboard extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: AppTheme.primaryBlue,
-                                borderRadius: BorderRadius.circular(10),
+                            GestureDetector(
+                              onTap: () => context.go('/patient/appointments'),
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primaryBlue,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(Icons.arrow_forward,
+                                    color: Colors.white, size: 18),
                               ),
-                              child: const Icon(Icons.arrow_forward,
-                                  color: Colors.white, size: 18),
                             ),
                           ],
                         ),
@@ -292,7 +319,14 @@ class PatientDashboard extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Appointment cancelled'),
+                                    backgroundColor: AppTheme.errorRed,
+                                  ),
+                                );
+                              },
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: AppTheme.errorRed,
                                 side: BorderSide(
@@ -307,7 +341,7 @@ class PatientDashboard extends ConsumerWidget {
                           const SizedBox(width: 12),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => context.go('/patient/appointments'),
                               child: const Text('Details'),
                             ),
                           ),
@@ -342,12 +376,23 @@ class PatientDashboard extends ConsumerWidget {
                         icon: Icons.psychology_rounded,
                         color: const Color(0xFF7C3AED),
                         label: 'Neurologist',
-                        isSelected: true),
-                    _SpecialtyChip(icon: Icons.favorite_rounded, color: const Color(0xFFE53935), label: 'Cardiologist'),
-                    _SpecialtyChip(icon: Icons.face_retouching_natural, color: const Color(0xFF00897B), label: 'Dermatologist'),
-                    _SpecialtyChip(icon: Icons.accessibility_new_rounded, color: const Color(0xFF1E88E5), label: 'Orthopedic'),
-                    _SpecialtyChip(icon: Icons.child_care_rounded, color: const Color(0xFFF4511E), label: 'Pediatrician'),
-                    _SpecialtyChip(icon: Icons.pregnant_woman_rounded, color: const Color(0xFF8E24AA), label: 'Gynecologist'),
+                        isSelected: _selectedSpecialty == 'Neurologist',
+                        onTap: () => setState(() => _selectedSpecialty = 'Neurologist')),
+                    _SpecialtyChip(icon: Icons.favorite_rounded, color: const Color(0xFFE53935), label: 'Cardiologist',
+                        isSelected: _selectedSpecialty == 'Cardiologist',
+                        onTap: () => setState(() => _selectedSpecialty = 'Cardiologist')),
+                    _SpecialtyChip(icon: Icons.face_retouching_natural, color: const Color(0xFF00897B), label: 'Dermatologist',
+                        isSelected: _selectedSpecialty == 'Dermatologist',
+                        onTap: () => setState(() => _selectedSpecialty = 'Dermatologist')),
+                    _SpecialtyChip(icon: Icons.accessibility_new_rounded, color: const Color(0xFF1E88E5), label: 'Orthopedic',
+                        isSelected: _selectedSpecialty == 'Orthopedic',
+                        onTap: () => setState(() => _selectedSpecialty = 'Orthopedic')),
+                    _SpecialtyChip(icon: Icons.child_care_rounded, color: const Color(0xFFF4511E), label: 'Pediatrician',
+                        isSelected: _selectedSpecialty == 'Pediatrician',
+                        onTap: () => setState(() => _selectedSpecialty = 'Pediatrician')),
+                    _SpecialtyChip(icon: Icons.pregnant_woman_rounded, color: const Color(0xFF8E24AA), label: 'Gynecologist',
+                        isSelected: _selectedSpecialty == 'Gynecologist',
+                        onTap: () => setState(() => _selectedSpecialty = 'Gynecologist')),
                   ],
                 ),
               ),
@@ -403,9 +448,9 @@ class PatientDashboard extends ConsumerWidget {
                 height: 185,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: mockDoctors.length > 5 ? 5 : mockDoctors.length,
+                  itemCount: filteredDoctors.length,
                   itemBuilder: (context, index) {
-                    final doc = mockDoctors[index];
+                    final doc = filteredDoctors[index];
                     return GestureDetector(
                       onTap: () => context
                           .push('/patient/doctor-detail/${doc.id}'),
@@ -533,7 +578,9 @@ class PatientDashboard extends ConsumerWidget {
                     TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 12),
-              ...recentPrescriptions.take(3).map((p) => Container(
+              ...recentPrescriptions.take(3).map((p) => GestureDetector(
+                    onTap: () => context.go('/patient/records'),
+                    child: Container(
                     margin: const EdgeInsets.only(bottom: 8),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -579,7 +626,9 @@ class PatientDashboard extends ConsumerWidget {
                             color: AppTheme.textLight),
                       ],
                     ),
+                  ),
                   )),
+
             ],
           ),
         ),
@@ -593,18 +642,22 @@ class _SpecialtyChip extends StatelessWidget {
   final Color color;
   final String label;
   final bool isSelected;
+  final VoidCallback? onTap;
 
   const _SpecialtyChip({
     required this.icon,
     required this.color,
     required this.label,
     this.isSelected = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final activeColor = isSelected ? AppTheme.primaryBlue : color;
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
@@ -643,6 +696,7 @@ class _SpecialtyChip extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
