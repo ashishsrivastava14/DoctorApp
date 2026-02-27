@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../core/theme/app_theme.dart';
@@ -128,11 +129,27 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       _CircleActionButton(
-                          icon: Icons.phone, color: AppTheme.successGreen),
+                          icon: Icons.phone,
+                          color: AppTheme.successGreen,
+                          onTap: () => showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: const Text('Call Doctor'),
+                                  content: Text(
+                                      'Phone: ${doctor.phone}'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context),
+                                        child: const Text('Close')),
+                                  ],
+                                ),
+                              )),
                       const SizedBox(width: 12),
                       _CircleActionButton(
                           icon: Icons.chat_bubble_outline,
-                          color: AppTheme.primaryBlue),
+                          color: AppTheme.primaryBlue,
+                          onTap: () => context.push('/patient/chat')),
                     ],
                   ),
                 ],
@@ -314,18 +331,22 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
 class _CircleActionButton extends StatelessWidget {
   final IconData icon;
   final Color color;
-  const _CircleActionButton({required this.icon, required this.color});
+  final VoidCallback? onTap;
+  const _CircleActionButton({required this.icon, required this.color, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        shape: BoxShape.circle,
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          shape: BoxShape.circle,
+          border: Border.all(color: color.withValues(alpha: 0.3)),
+        ),
+        child: Icon(icon, color: color, size: 22),
       ),
-      child: Icon(icon, color: color, size: 22),
     );
   }
 }
