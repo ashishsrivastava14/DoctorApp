@@ -2,6 +2,211 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/mock_avatar_widget.dart';
 
+// ── Reusable call sheet ───────────────────────────────────────────────────────
+void _showCallSheet(BuildContext context,
+    {required bool isVideo, required String name}) {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+    builder: (ctx) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 36,
+              backgroundColor: AppTheme.primaryBlue.withValues(alpha: 0.12),
+              child: Icon(
+                isVideo ? Icons.videocam : Icons.call,
+                size: 36,
+                color: AppTheme.primaryBlue,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              isVideo ? 'Video Call' : 'Voice Call',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 6),
+            Text(name,
+                style: TextStyle(fontSize: 14, color: AppTheme.textSecondary)),
+            const SizedBox(height: 6),
+            Text(
+              'Connecting...',
+              style: TextStyle(
+                  fontSize: 13,
+                  color: AppTheme.primaryBlue,
+                  fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 28),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _CallAction(
+                  icon: Icons.mic_off,
+                  label: 'Mute',
+                  color: Colors.grey.shade700,
+                  onTap: () {},
+                ),
+                if (isVideo)
+                  _CallAction(
+                    icon: Icons.videocam_off,
+                    label: 'Camera',
+                    color: Colors.grey.shade700,
+                    onTap: () {},
+                  ),
+                _CallAction(
+                  icon: Icons.call_end,
+                  label: 'End',
+                  color: Colors.red,
+                  onTap: () => Navigator.of(ctx).pop(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+class _CallAction extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+  const _CallAction(
+      {required this.icon,
+      required this.label,
+      required this.color,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CircleAvatar(
+              radius: 28,
+              backgroundColor: color.withValues(alpha: 0.12),
+              child: Icon(icon, color: color, size: 26)),
+          const SizedBox(height: 6),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Attachment sheet ──────────────────────────────────────────────────────────
+void _showAttachmentSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+    builder: (ctx) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Share',
+                style:
+                    TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _AttachOption(
+                  icon: Icons.photo_library,
+                  label: 'Gallery',
+                  color: Colors.purple,
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Gallery selected (mock)')),
+                    );
+                  },
+                ),
+                _AttachOption(
+                  icon: Icons.camera_alt,
+                  label: 'Camera',
+                  color: Colors.orange,
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Camera selected (mock)')),
+                    );
+                  },
+                ),
+                _AttachOption(
+                  icon: Icons.insert_drive_file,
+                  label: 'Document',
+                  color: Colors.blue,
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Document selected (mock)')),
+                    );
+                  },
+                ),
+                _AttachOption(
+                  icon: Icons.medical_services,
+                  label: 'Report',
+                  color: Colors.red,
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Medical report selected (mock)')),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+class _AttachOption extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+  const _AttachOption(
+      {required this.icon,
+      required this.label,
+      required this.color,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: color.withValues(alpha: 0.12),
+            child: Icon(icon, color: color, size: 26),
+          ),
+          const SizedBox(height: 6),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+    );
+  }
+}
+
 class ChatScreen extends StatefulWidget {
   final String doctorName;
   final String doctorAvatarUrl;
@@ -149,11 +354,13 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.videocam_outlined),
-            onPressed: () {},
+            onPressed: () => _showCallSheet(context,
+                isVideo: true, name: widget.doctorName),
           ),
           IconButton(
             icon: const Icon(Icons.call_outlined),
-            onPressed: () {},
+            onPressed: () => _showCallSheet(context,
+                isVideo: false, name: widget.doctorName),
           ),
         ],
       ),
@@ -204,12 +411,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.attach_file),
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Attachment feature (mock)')),
-                      );
-                    },
+                    onPressed: () => _showAttachmentSheet(context),
                   ),
                   Expanded(
                     child: TextField(
