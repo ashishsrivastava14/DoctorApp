@@ -98,6 +98,137 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
     }
   }
 
+  void _showForgotPasswordDialog() {
+    final emailCtrl = TextEditingController(text: _emailController.text);
+    final formKey = GlobalKey<FormState>();
+    bool sent = false;
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: sent
+              ? null
+              : Row(
+                  children: [
+                    Icon(Icons.lock_reset_rounded, color: _roleColor, size: 22),
+                    const SizedBox(width: 8),
+                    const Text('Forgot Password', style: TextStyle(fontSize: 17)),
+                  ],
+                ),
+          content: sent
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 64,
+                      height: 64,
+                      decoration: BoxDecoration(
+                        color: _roleColor.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.mark_email_read_outlined,
+                          color: _roleColor, size: 32),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Reset link sent!',
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Check your inbox at\n${emailCtrl.text}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                  ],
+                )
+              : Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Enter your registered email and we\'ll send you a password reset link.',
+                        style: TextStyle(fontSize: 13, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: emailCtrl,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon:
+                              Icon(Icons.email_outlined, color: _roleColor),
+                          filled: true,
+                          fillColor: Colors.grey.shade50,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide:
+                                BorderSide(color: _roleColor, width: 1.5),
+                          ),
+                        ),
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!v.contains('@')) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+          actions: sent
+              ? [
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _roleColor,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text('Done'),
+                    ),
+                  ),
+                ]
+              : [
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: const Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _roleColor,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        setDialogState(() => sent = true);
+                      }
+                    },
+                    child: const Text('Send Reset Link'),
+                  ),
+                ],
+        ),
+      ),
+    );
+  }
+
   void _handleLogin() {
     if (_formKey.currentState!.validate()) {
       String userId;
@@ -352,7 +483,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: _showForgotPasswordDialog,
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(0, 36),
