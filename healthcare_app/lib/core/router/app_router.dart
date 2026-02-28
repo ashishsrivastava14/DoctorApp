@@ -27,6 +27,7 @@ import '../../features/doctor/screens/doctor_profile_screen.dart';
 import '../../features/doctor/screens/patient_list_screen.dart';
 import '../../features/doctor/screens/doctor_chat_list_screen.dart';
 import '../../features/doctor/screens/doctor_notifications_screen.dart';
+import '../../features/doctor/screens/doctor_telemedicine_screen.dart';
 import '../../features/admin/admin_shell.dart';
 import '../../features/admin/screens/admin_dashboard.dart';
 import '../../features/admin/screens/manage_doctors_screen.dart';
@@ -309,6 +310,14 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: 'doctor-notifications',
             pageBuilder: (context, state) => CustomTransitionPage(
               child: const DoctorNotificationsScreen(),
+              transitionsBuilder: _slideTransition,
+            ),
+          ),
+          GoRoute(
+            path: '/doctor/telemedicine',
+            name: 'doctor-telemedicine',
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const DoctorTelemedicineScreen(),
               transitionsBuilder: _slideTransition,
             ),
           ),

@@ -255,7 +255,7 @@ class DoctorDashboard extends ConsumerWidget {
                   icon: Icons.videocam_outlined,
                   label: 'Telemedicine',
                   color: AppTheme.successGreen,
-                  onTap: () {},
+                  onTap: () => context.push('/doctor/telemedicine'),
                 ),
                 _QuickAction(
                   icon: Icons.bar_chart,
