@@ -450,6 +450,127 @@ class _PatientDashboardState extends ConsumerState<PatientDashboard> {
                 ],
               ),
               const SizedBox(height: 24),
+
+              // ── Telemedicine Banner ─────────────────────────────────────
+              GestureDetector(
+                onTap: () => context.push('/patient/telemedicine'),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF1D4ED8), Color(0xFF2563EB), Color(0xFF60A5FA)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppTheme.primaryBlue.withValues(alpha: 0.35),
+                        blurRadius: 14,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.fiber_manual_record,
+                                      color: Color(0xFF86EFAC), size: 8),
+                                  SizedBox(width: 5),
+                                  Text('Doctors Available Now',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500)),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text('Telemedicine',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700)),
+                            const SizedBox(height: 4),
+                            Text('Consult a doctor via video\ncall from home',
+                                style: TextStyle(
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                    fontSize: 13,
+                                    height: 1.4)),
+                            const SizedBox(height: 14),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text('Start Consultation',
+                                      style: TextStyle(
+                                          color: AppTheme.primaryBlue,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w700)),
+                                  SizedBox(width: 6),
+                                  Icon(Icons.arrow_forward,
+                                      color: AppTheme.primaryBlue, size: 16),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.15),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.videocam,
+                                color: Colors.white, size: 42),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              _OnlineDot(color: const Color(0xFF86EFAC)),
+                              const SizedBox(width: 3),
+                              _OnlineDot(color: Colors.white54),
+                              const SizedBox(width: 3),
+                              _OnlineDot(color: Colors.white54),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          const Text('12 online',
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 11)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
               // Popular Doctors
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -826,6 +947,20 @@ class _HealthStatCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _OnlineDot extends StatelessWidget {
+  final Color color;
+  const _OnlineDot({required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 8,
+      height: 8,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
 }
