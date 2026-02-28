@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../core/widgets/app_background.dart';
+import '../../core/widgets/powered_by_footer.dart';
 
 class AdminShell extends StatelessWidget {
   final Widget child;
@@ -83,7 +84,14 @@ class AdminShell extends StatelessWidget {
               ],
             ),
             const VerticalDivider(thickness: 1, width: 1),
-            Expanded(child: child),
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(child: child),
+                  const PoweredByFooter(),
+                ],
+              ),
+            ),
           ],
         ),
       ));
@@ -91,7 +99,11 @@ class AdminShell extends StatelessWidget {
 
     return AppBackground(child: Scaffold(
       body: child,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const PoweredByFooter(),
+          BottomNavigationBar(
         currentIndex: idx,
         onTap: (i) => _navigate(context, i),
         type: BottomNavigationBarType.fixed,
@@ -118,6 +130,8 @@ class AdminShell extends StatelessWidget {
               icon: Icon(Icons.more_horiz),
               activeIcon: Icon(Icons.more_horiz),
               label: 'More'),
+        ],
+      ),
         ],
       ),
     ));

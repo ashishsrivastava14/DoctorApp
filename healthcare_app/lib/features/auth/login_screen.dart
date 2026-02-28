@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/widgets/powered_by_footer.dart';
 import 'auth_notifier.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -548,6 +549,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                 ),
               ),
             ),
+          ),
+          // Branding footer
+          const Positioned(
+            left: 0,
+            right: 0,
+            bottom: 12,
+            child: SafeArea(child: PoweredByFooter()),
           ),
         ],
       ),

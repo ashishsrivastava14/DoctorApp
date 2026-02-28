@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/powered_by_footer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -158,6 +159,13 @@ class _SplashScreenState extends State<SplashScreen>
                 ],
               ),
             ),
+          ),
+          // Branding footer
+          const Positioned(
+            left: 0,
+            right: 0,
+            bottom: 12,
+            child: SafeArea(child: PoweredByFooter()),
           ),
         ],
       ),

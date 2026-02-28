@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/app_background.dart';
+import '../../core/widgets/powered_by_footer.dart';
 
 class PatientShell extends StatelessWidget {
   final Widget child;
@@ -23,7 +24,11 @@ class PatientShell extends StatelessWidget {
     final idx = _getSelectedIndex(context);
     return AppBackground(child: Scaffold(
       body: child,
-      bottomNavigationBar: Container(
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const PoweredByFooter(),
+          Container(
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -82,6 +87,8 @@ class PatientShell extends StatelessWidget {
             ),
           ],
         ),
+      ),
+        ],
       ),
     ));
   }

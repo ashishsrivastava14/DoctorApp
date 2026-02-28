@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../core/widgets/app_background.dart';
+import '../../core/widgets/powered_by_footer.dart';
 
 class DoctorShell extends StatelessWidget {
   final Widget child;
@@ -44,7 +45,11 @@ class DoctorShell extends StatelessWidget {
     final idx = _currentIndex(context);
     return AppBackground(child: Scaffold(
       body: child,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const PoweredByFooter(),
+          BottomNavigationBar(
         currentIndex: idx,
         onTap: (i) {
           switch (i) {
@@ -69,6 +74,8 @@ class DoctorShell extends StatelessWidget {
         selectedItemColor: AppTheme.primaryBlue,
         unselectedItemColor: Colors.grey,
         items: _items,
+      ),
+        ],
       ),
     ));
   }
