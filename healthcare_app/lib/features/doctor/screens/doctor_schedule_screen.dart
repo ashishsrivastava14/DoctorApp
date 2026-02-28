@@ -223,7 +223,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
     if (slot.status == 'booked' || slot.status == 'completed') {
       showDialog(
         context: ctx,
-        builder: (_) => AlertDialog(
+        builder: (dialogCtx) => AlertDialog(
           title: Text(slot.status == 'booked' ? 'Booked Appointment' : 'Completed Appointment'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -247,7 +247,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
               TextButton(
                 onPressed: () {
                   setState(() => slot.status = 'blocked');
-                  Navigator.pop(ctx);
+                  Navigator.pop(dialogCtx);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Slot ${slot.time} cancelled and blocked')),
                   );
@@ -255,7 +255,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
                 child: const Text('Cancel Slot', style: TextStyle(color: AppTheme.errorRed)),
               ),
             TextButton(
-              onPressed: () => Navigator.pop(ctx),
+              onPressed: () => Navigator.pop(dialogCtx),
               child: const Text('Close'),
             ),
           ],
