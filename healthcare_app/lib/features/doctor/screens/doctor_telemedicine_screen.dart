@@ -374,7 +374,7 @@ class _TelemedicineCard extends StatelessWidget {
                           fontWeight: FontWeight.w500)),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => _showNotesSheet(context, appt),
                     child: const Text('View Notes'),
                   ),
                 ],
@@ -396,6 +396,77 @@ class _TelemedicineCard extends StatelessWidget {
       default:
         return AppTheme.errorRed;
     }
+  }
+
+  void _showNotesSheet(BuildContext context, AppointmentModel appt) {
+    final ctrl = TextEditingController(text: appt.notes);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(
+            bottom: MediaQuery.of(ctx).viewInsets.bottom),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(2)),
+                ),
+              ),
+              Text('Consultation Notes — ${appt.patientName}',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 4),
+              Text(
+                  DateFormat('MMM dd, yyyy').format(appt.date) +
+                      '  •  ' +
+                      appt.timeSlot,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.textSecondary)),
+              const SizedBox(height: 14),
+              TextField(
+                controller: ctrl,
+                maxLines: 5,
+                decoration: InputDecoration(
+                  hintText: 'No notes yet. Add consultation notes...',
+                  filled: true,
+                  fillColor: Colors.grey.shade50,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Notes saved')),
+                    );
+                  },
+                  child: const Text('Save Notes'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _startCall(BuildContext context, AppointmentModel appt) {
