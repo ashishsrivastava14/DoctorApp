@@ -4,6 +4,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/mock_avatar_widget.dart';
 import '../../../mock_data/mock_appointments.dart';
 import '../../../models/appointment_model.dart';
+import '../../patient/screens/chat_screen.dart';
 
 class DoctorTelemedicineScreen extends StatefulWidget {
   const DoctorTelemedicineScreen({super.key});
@@ -338,7 +339,14 @@ class _TelemedicineCard extends StatelessWidget {
                           side: BorderSide(
                               color: AppTheme.primaryBlue.withValues(alpha: 0.4)),
                           padding: const EdgeInsets.symmetric(vertical: 8)),
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => ChatScreen(
+                            doctorName: appt.patientName,
+                            doctorAvatarUrl: appt.patientAvatar,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
