@@ -89,10 +89,10 @@ class _PatientProfileScreenState extends ConsumerState<PatientProfileScreen> {
             Center(
               child: Column(
                 children: [
-                  MockAvatarWidget(name: patient.name, size: 80, avatarUrl: patient.avatarUrl),
+                  MockAvatarWidget(name: _nameCtrl.text, size: 80, avatarUrl: patient.avatarUrl),
                   const SizedBox(height: 12),
                   Text(
-                    patient.name,
+                    _nameCtrl.text,
                     style: const TextStyle(
                         fontSize: 22, fontWeight: FontWeight.w700),
                   ),
@@ -183,7 +183,7 @@ class _PatientProfileScreenState extends ConsumerState<PatientProfileScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      initialValue: _bloodGroup,
+                      value: _bloodGroup,
                       decoration: const InputDecoration(
                         labelText: 'Blood Group',
                         prefixIcon: Icon(Icons.bloodtype_outlined),
