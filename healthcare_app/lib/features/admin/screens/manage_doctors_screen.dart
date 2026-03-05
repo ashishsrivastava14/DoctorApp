@@ -266,7 +266,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                         keyboardType: TextInputType.phone),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      value: specialty,
+                      initialValue: specialty,
                       decoration: const InputDecoration(
                         labelText: 'Specialty',
                         prefixIcon:
@@ -329,7 +329,9 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (!(formKey.currentState?.validate() ??
-                            false)) return;
+                            false)) {
+                          return;
+                        }
                         final updated = DoctorModel(
                           id: existing?.id ??
                               'doc_${DateTime.now().millisecondsSinceEpoch}',

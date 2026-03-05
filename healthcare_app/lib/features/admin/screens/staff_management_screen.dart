@@ -331,7 +331,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: role,
+                    initialValue: role,
                     decoration: const InputDecoration(
                       labelText: 'Role',
                       prefixIcon: Icon(Icons.badge_outlined),
@@ -346,7 +346,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: department,
+                    initialValue: department,
                     decoration: const InputDecoration(
                       labelText: 'Department',
                       prefixIcon: Icon(Icons.business_outlined),
@@ -390,7 +390,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                             ),
                             Switch(
                               value: isActive,
-                              activeColor: AppTheme.successGreen,
+                              activeThumbColor: AppTheme.successGreen,
                               onChanged: (v) =>
                                   setLocal(() => isActive = v),
                             ),
@@ -403,7 +403,9 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (!(formKey.currentState?.validate() ??
-                          false)) return;
+                          false)) {
+                        return;
+                      }
                       final updated = StaffModel(
                         id: existing?.id ??
                             'staff_${DateTime.now().millisecondsSinceEpoch}',
@@ -833,7 +835,6 @@ class _FormField extends StatelessWidget {
     required this.label,
     required this.icon,
     this.keyboardType,
-    this.maxLines = 1,
     this.validator,
   });
 

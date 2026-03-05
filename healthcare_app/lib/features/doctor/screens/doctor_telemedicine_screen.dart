@@ -430,9 +430,7 @@ class _TelemedicineCard extends StatelessWidget {
                       fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(
-                  DateFormat('MMM dd, yyyy').format(appt.date) +
-                      '  •  ' +
-                      appt.timeSlot,
+                  '${DateFormat('MMM dd, yyyy').format(appt.date)}  •  ${appt.timeSlot}',
                   style: TextStyle(
                       fontSize: 12,
                       color: AppTheme.textSecondary)),

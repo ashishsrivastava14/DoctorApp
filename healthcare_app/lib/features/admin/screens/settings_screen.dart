@@ -81,7 +81,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: ListView.separated(
               shrinkWrap: true,
               itemCount: _kLanguages.length,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const Divider(height: 1),
               itemBuilder: (_, i) {
                 final lang = _kLanguages[i];

@@ -267,7 +267,7 @@ class _DepartmentsScreenState extends State<DepartmentsScreen> {
                             fontSize: 12,
                             color: AppTheme.textSecondary)),
                     value: isActive,
-                    activeColor: AppTheme.successGreen,
+                    activeThumbColor: AppTheme.successGreen,
                     onChanged: (v) => setLocal(() => isActive = v),
                   ),
                   const SizedBox(height: 20),
@@ -279,7 +279,9 @@ class _DepartmentsScreenState extends State<DepartmentsScreen> {
                               const EdgeInsets.symmetric(vertical: 14)),
                       onPressed: () {
                         if (!(formKey.currentState?.validate() ??
-                            false)) return;
+                            false)) {
+                          return;
+                        }
                         final updated = DepartmentModel(
                           id: existing?.id ??
                               'dept_${DateTime.now().millisecondsSinceEpoch}',

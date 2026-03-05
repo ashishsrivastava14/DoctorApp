@@ -183,7 +183,7 @@ class _PatientProfileScreenState extends ConsumerState<PatientProfileScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      value: _bloodGroup,
+                      initialValue: _bloodGroup,
                       decoration: const InputDecoration(
                         labelText: 'Blood Group',
                         prefixIcon: Icon(Icons.bloodtype_outlined),

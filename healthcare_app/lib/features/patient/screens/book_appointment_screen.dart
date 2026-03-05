@@ -6,7 +6,8 @@ import '../../../mock_data/mock_doctors.dart';
 import '../../../core/constants/app_constants.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  const BookAppointmentScreen({super.key});
+  final String initialSpecialty;
+  const BookAppointmentScreen({super.key, this.initialSpecialty = 'All'});
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -14,7 +15,13 @@ class BookAppointmentScreen extends StatefulWidget {
 
 class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   String _searchQuery = '';
-  String _selectedSpecialty = 'All';
+  late String _selectedSpecialty;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedSpecialty = widget.initialSpecialty;
+  }
 
   @override
   Widget build(BuildContext context) {

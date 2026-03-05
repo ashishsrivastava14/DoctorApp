@@ -841,8 +841,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
     for (final p in patients) {
       final age = _now.year - p.dateOfBirth.year;
       ageSum += age;
-      if (age <= 20) age0to20++;
-      else if (age <= 35) age21to35++;
+      if (age <= 20) {
+        age0to20++;
+      } else if (age <= 35) age21to35++;
       else if (age <= 50) age36to50++;
       else age51plus++;
     }

@@ -313,7 +313,7 @@ class _BillingScreenState extends State<BillingScreen> {
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: payMethod,
+                    initialValue: payMethod,
                     decoration: const InputDecoration(
                       labelText: 'Payment Method',
                       prefixIcon: Icon(Icons.payment_outlined),
@@ -328,7 +328,7 @@ class _BillingScreenState extends State<BillingScreen> {
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: status,
+                    initialValue: status,
                     decoration: const InputDecoration(
                       labelText: 'Status',
                       prefixIcon: Icon(Icons.info_outline),
@@ -350,7 +350,9 @@ class _BillingScreenState extends State<BillingScreen> {
                               const EdgeInsets.symmetric(vertical: 14)),
                       onPressed: () {
                         if (!(formKey.currentState?.validate() ??
-                            false)) return;
+                            false)) {
+                          return;
+                        }
                         final newBill = BillingModel(
                           id: 'bill_${DateTime.now().millisecondsSinceEpoch}',
                           patientId: 'pat_new',

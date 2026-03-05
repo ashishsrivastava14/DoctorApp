@@ -46,18 +46,18 @@ class _PatientDashboardState extends ConsumerState<PatientDashboard> {
         .toList()
       ..sort((a, b) => b.date.compareTo(a.date));
 
-    final _query = _searchController.text.toLowerCase();
+    final query = _searchController.text.toLowerCase();
     final filteredDoctors = mockDoctors.where((d) {
-      if (_query.isNotEmpty) {
+      if (query.isNotEmpty) {
         // When searching, ignore specialty filter and match across all doctors
-        return d.name.toLowerCase().contains(_query) ||
-            d.specialty.toLowerCase().contains(_query) ||
-            d.hospitalName.toLowerCase().contains(_query);
+        return d.name.toLowerCase().contains(query) ||
+            d.specialty.toLowerCase().contains(query) ||
+            d.hospitalName.toLowerCase().contains(query);
       }
       // No search query — filter by selected specialty chip
       return _selectedSpecialty.isEmpty ||
           d.specialty.toLowerCase() == _selectedSpecialty.toLowerCase();
-    }).take(5).toList();
+    }).toList();
 
     return Scaffold(
       body: SafeArea(

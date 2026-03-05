@@ -117,10 +117,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/patient/book-appointment',
             name: 'book-appointment',
-            pageBuilder: (context, state) => CustomTransitionPage(
-              child: const BookAppointmentScreen(),
-              transitionsBuilder: _slideTransition,
-            ),
+            pageBuilder: (context, state) {
+              final initialSpecialty = state.extra as String? ?? 'All';
+              return CustomTransitionPage(
+                child: BookAppointmentScreen(initialSpecialty: initialSpecialty),
+                transitionsBuilder: _slideTransition,
+              );
+            },
           ),
           GoRoute(
             path: '/patient/doctor-detail/:doctorId',

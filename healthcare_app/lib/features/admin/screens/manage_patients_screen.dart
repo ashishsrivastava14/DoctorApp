@@ -418,7 +418,7 @@ class _ManagePatientsScreenState extends State<ManagePatientsScreen> {
                   Row(children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: gender,
+                        initialValue: gender,
                         decoration: const InputDecoration(
                             labelText: 'Gender',
                             border: OutlineInputBorder()),
@@ -433,7 +433,7 @@ class _ManagePatientsScreenState extends State<ManagePatientsScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: bloodGroup,
+                        initialValue: bloodGroup,
                         decoration: const InputDecoration(
                             labelText: 'Blood Group',
                             border: OutlineInputBorder()),

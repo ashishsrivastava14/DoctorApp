@@ -522,7 +522,7 @@ void _showDocumentSheet(BuildContext context) {
                 child: ListView.separated(
                   controller: sc,
                   itemCount: _mockDocuments.length,
-                  separatorBuilder: (_, __) =>
+                  separatorBuilder: (_, _) =>
                       Divider(height: 1, indent: 72, color: Colors.grey.shade200),
                   itemBuilder: (_, i) {
                     final doc = _mockDocuments[i];
@@ -670,7 +670,7 @@ void _showMedicalReportSheet(BuildContext context) {
                   controller: sc,
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   itemCount: _mockReports.length,
-                  separatorBuilder: (_, __) => Divider(
+                  separatorBuilder: (_, _) => Divider(
                       height: 1,
                       indent: 72,
                       color: Colors.grey.shade200),
